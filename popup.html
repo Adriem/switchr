@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+    <title>Getting Started Extension's Popup</title>
+
+    <link rel="stylesheet" href="dist/style.min.css">
+
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="dist/script.min.js"></script>
+
+</head>
+<body data-ng-app="switchr">
+
+    <div id="sessionList" data-ng-controller="SessionListCtrl">
+        <h1>Save session:</h1>
+        <form id="saveSessionForm"
+                data-ng-submit="saveSession(currentSession.name)">
+            <input type="text"
+                    id="sessionNameInput"
+                    placeholder="Session name"
+                    data-ng-model="currentSession.name"
+                    required>
+            <input type="submit" value="Save">
+        </form>
+        <h1>Session List:</h1>
+        <ul id="openedTabList">
+            <p data-ng-if="sessionList.length === 0">
+                You have no sessions saved
+            </p>
+            <li data-ng-repeat="session in sessionList">
+                <strong>{{ session.name }}</strong><br>
+                {{ session.windowCount }} window(s), {{ session.tabCount }} tab(s)<br>
+                <a data-ng-click="restoreSession(session.name)" href="">Load</a>
+                <a data-ng-click="removeSession(session.name)" href="">Delete</a>
+                <br><br>
+            </li>
+        </ul>
+    </div>
+    
+</body>
+</html>
+
