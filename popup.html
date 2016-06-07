@@ -2,8 +2,9 @@
 <html>
 <head>
 
-    <title>Getting Started Extension's Popup</title>
+    <title>Switchr</title>
 
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="dist/style.min.css">
 
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
@@ -14,31 +15,84 @@
 <body data-ng-app="switchr">
 
     <div id="sessionList" data-ng-controller="SessionListCtrl">
-        <h1>Save session:</h1>
-        <form id="saveSessionForm"
-                data-ng-submit="saveSession(currentSession.name)">
-            <input type="text"
-                    id="sessionNameInput"
-                    placeholder="Session name"
-                    data-ng-model="currentSession.name"
-                    required>
-            <input type="submit" value="Save">
-        </form>
-        <h1>Session List:</h1>
-        <ul id="openedTabList">
-            <p data-ng-if="sessionList.length === 0">
-                You have no sessions saved
-            </p>
-            <li data-ng-repeat="session in sessionList">
-                <strong>{{ session.name }}</strong><br>
-                {{ session.windowCount }} window(s), {{ session.tabCount }} tab(s)<br>
-                <a data-ng-click="restoreSession(session.name)" href="">Load</a>
-                <a data-ng-click="removeSession(session.name)" href="">Delete</a>
-                <br><br>
-            </li>
-        </ul>
-    </div>
+        <div id="content">
+
+            <h1 id="title">Switchr<small>by Adrian Moreno</small></h1>
+
+            <div id="openedTabList">
+
+                <p data-ng-if="sessionList.length === 0">
+                    You have no sessions saved
+                </p>
+
+                <div data-ng-repeat="session in sessionList">
+                    <div class="input-group session-item">
+                        <button class="main-action"
+                                data-ng-click="restoreSession(session.name)">
+                            <div data-ng-class="{
+                                        'session-open': session.open
+                                    }">
+                                <h2 class="session-title">
+                                    {{ session.name }}
+                                </h2>
+                                {{ session.windowCount }} window(s),
+                                {{ session.tabCount }} tab(s)
+                            </div>
+                        </button>
+                        <div class="single-actions">
+                            <button class="edit-btn"
+                                    data-ng-class="{
+                                        'session-open': session.open,
+                                        'session-closed': !session.open
+                                    }"
+                                    data-ng-click="alert('Coming soon...')">
+                                <i class="fa fa-pencil"></i>
+                            </button>
+                            <button class="delete-btn"
+                                    data-ng-class="{
+                                        'session-open': session.open,
+                                        'session-closed': !session.open
+                                    }"
+                                    data-ng-click="removeSession(session.name)">
+                                <i class="fa fa-trash-o"></i>
+                            </button>
+                            <button class="overflow-btn"
+                                    data-ng-class="{
+                                        'session-open': session.open
+                                    }"
+                                    data-ng-click="session.open = !session.open">
+                                <i class="fa fa-ellipsis-v"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     
+        <div id="footer">
+            <form id="saveSessionForm"
+                    class="input-group"
+                    data-ng-submit="saveSession(currentSession.name)">
+                <div class="main-action">
+                <input type="text"
+                        id="sessionNameInput"
+                        placeholder="Session name"
+                        data-ng-model="currentSession.name"
+                        required>
+                </div>
+                <div class="single-actions">
+                    <!-- <button type="submit"> -->
+                        <!-- <span class="fa fa-lg fa-plus-circle"></span> -->
+                    <!-- </button> -->
+                    <button type="submit">
+                        <span class="fa fa-save"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
 </body>
 </html>
 
