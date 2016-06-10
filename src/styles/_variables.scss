@@ -1,0 +1,51 @@
+// Dimensions
+$app-width: 300px;
+$app-height: 470px;
+$header-height: 0;
+$footer-height: 54px;
+$content-top: $header-height;
+$content-bottom: $footer-height;
+
+// Colors
+$main-bg: #6ac3ad;
+$white: #fff;
+/* $main-bg: #8dbdb1; */
+/* $main-bg: #f19b5e; */
+
+// Footer
+$footer-bg: $white;
+$footer-fg: #678;
+$footer-border: 1px solid #ccc;
+$footer-padding: 8px;
+$footer-highlight: #00ddaa;
+
+// Title
+$main-title-font: bold 27pt Georgia, serif;
+$main-title-color: rgba(0, 0, 0, 0.7);
+$sub-title-font: bold 8pt Helvetica, sans-serif;
+$sub-title-color: rgba(0, 0, 0, 0.45);
+$title-padding: 25px 0;
+$sub-title-offset: 25%;
+$title-background: $main-bg;
+$title-border: 1px solid darken($title-background, 20%);
+
+// Section header
+$section-header-font: 800 8pt Arial, sans-serif;
+$section-header-color: rgba(0, 0, 0, 0.55);
+$section-header-margin: 9px 0 3px;
+
+// Session List item
+$sl-item-height: 60px;
+$sl-item-padding-left: 15px;
+$sl-item-padding-right: 5px;
+$sl-item-title-size: 125%;
+$sl-border-radius: 4px;
+$sl-highlight-bg: lighten($main-bg, 35%);
+$sl-action-size: 32px;
+$sl-action-font-size: 18px;
+$sl-action-margin: 1px;
+$sl-action-highlight-blue: #0087ff;
+$sl-action-highlight-green: #3fad49;
+$sl-action-highlight-red: #d60e0e;
+$sl-compact-main-width: 190px;
+$sl-expanded-main-width: 120px;

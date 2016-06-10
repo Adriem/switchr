@@ -1,0 +1,15 @@
+@import "variables";
+
+body {
+    width: $app-width;
+    height: $app-height;
+    margin: 0;
+    overflow: none;
+
+    *:hover, *:active, *:focus { outline: none; }
+
+    @import "content";
+    @import "action-group";
+    @import "footer";
+    @import "session-list-item";
+}

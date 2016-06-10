@@ -1,0 +1,37 @@
+#content {
+    box-sizing: border-box;
+    position: absolute;
+    top: $content-top;
+    bottom: $content-bottom;
+    width: 100%;
+    overflow-y: auto;
+}
+
+#title {
+    font: $main-title-font;
+    color: $main-title-color;
+    background: $title-background;
+    border-bottom: $title-border;
+    padding: $title-padding;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+
+    small {
+        font: $sub-title-font;
+        color: $sub-title-color;
+        padding-left: $sub-title-offset;
+        display: block;
+    }
+}
+
+.section-header {
+    text-transform: uppercase;
+    font: $section-header-font;
+    margin-bottom: $section-header-margin;
+    color: $section-header-color;
+}
+
+#openedTabList {
+    padding: 5px 8px;
+}

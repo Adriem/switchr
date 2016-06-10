@@ -1,0 +1,80 @@
+.session-item {
+    height: $sl-item-height;
+    padding: 0 $sl-item-padding-right 0 0;
+    border-radius: $sl-border-radius;
+
+    &:hover { background-color: $sl-highlight-bg; }
+
+    .main-action {
+        padding-left: $sl-item-padding-left;
+        text-align: left;
+        background: none;
+        border: none;
+        height: 100%;
+        vertical-align: middle;
+        cursor: pointer;
+
+        .session-title {
+            font-size: $sl-item-title-size;
+            margin: 0;
+            width: 100%;
+        }
+
+        * {
+            box-sizing: border-box;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            display: block;
+
+            -webkit-transition: width 0.20s ease-in-out;
+            transition: width 0.20s ease-in-out;
+
+            width: $sl-compact-main-width;
+            &.session-open { width: $sl-expanded-main-width; }
+        }
+    }
+
+    .single-actions {
+        button {
+            font-size: $sl-action-font-size;
+            cursor: pointer;
+            height: $sl-action-size;
+            width: $sl-action-size;
+            margin: 0 ($sl-action-margin - 1);
+            border-radius: $sl-action-size / 2;
+            padding: 3px 0 0;
+            border: none;
+            background: none;
+            &:hover {
+                color: $sl-action-highlight-blue;
+                /* background: #b4dcff; */
+            }
+            &:not(.overflow-btn) {
+                -webkit-transition: visibility 0.1s, opacity 0.15s, margin 0.15s ease-in-out;
+                transition: visibility 0.1s, opacity 0.15s, margin 0.15s ease-in-out;
+            }
+            &.session-closed:not(.overflow-btn) {
+                opacity: 0;
+                visibility: hidden;
+                margin-right: -1 * ($sl-action-size + (2 * $sl-action-margin));
+            }
+            &.overflow-btn {
+                -webkit-transition: -webkit-transform 0.15s;
+                transition: transform 0.15s;
+                &:hover {
+                    color: $sl-action-highlight-green;
+                    /* background: #bfeed6; */
+                }
+                &.session-open {
+                    -webkit-transform: rotate(90deg);
+                    transform: rotate(90deg);
+                }
+            }
+            &.delete-btn:hover {
+                color: $sl-action-highlight-red;
+                /* background: #ffb4b4; */
+            }
+        }
+    }
+}
