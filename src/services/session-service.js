@@ -53,4 +53,30 @@ angular.module('switchr').service('SessionService', [
             return Promise.resolve(_deletedSession);
         };
 
+        this.activateSession = function(name) {
+            loadSessions();
+            // if (sessions.filter(function(x) { return x.name === name; })) {
+            if (sessions[name]) {
+                localStorage.setItem(LocalStorageKeys.ACTIVE_SESSION, name);
+                return Promise.resolve(cloneSessions()[name]);
+            } else {
+                return Promise.reject();
+            }
+        }
+
+        this.getActiveSession = function() {
+            loadSessions();
+            var _active = localStorage.getItem(LocalStorageKeys.ACTIVE_SESSION);
+            if (!_active) {
+                return Promise.resolve();
+            } else if (sessions[_active]) {
+                return Promise.resolve({
+                    name: _active,
+                    data: cloneSessions()[_active]
+                });
+            } else {
+                return Promise.reject();
+            }
+        }
+
     }]);

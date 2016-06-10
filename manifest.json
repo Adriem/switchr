@@ -4,7 +4,7 @@
     "version": "0.0.1",
     "description": "This extension enables you to save tabs and windows, so you can restore them later",
     "browser_action": {
-        "default_icon": "icon.png",
+        "default_icon": "icon-19.png",
         "default_popup": "popup.html"
     },
     "permissions": [

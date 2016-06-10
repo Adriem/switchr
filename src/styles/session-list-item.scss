@@ -1,9 +1,9 @@
-.session-item {
+.session-list-item {
     height: $sl-item-height;
     padding: 0 $sl-item-padding-right 0 0;
-    border-radius: $sl-border-radius;
+    border-radius: $sl-item-border-radius;
 
-    &:hover { background-color: $sl-highlight-bg; }
+    &:hover { background-color: $sl-item-highlight-bg; }
 
     .main-action {
         padding-left: $sl-item-padding-left;
@@ -46,18 +46,17 @@
             padding: 3px 0 0;
             border: none;
             background: none;
-            &:hover {
-                color: $sl-action-highlight-blue;
-                /* background: #b4dcff; */
-            }
             &:not(.overflow-btn) {
                 -webkit-transition: visibility 0.1s, opacity 0.15s, margin 0.15s ease-in-out;
                 transition: visibility 0.1s, opacity 0.15s, margin 0.15s ease-in-out;
             }
-            &.session-closed:not(.overflow-btn) {
-                opacity: 0;
-                visibility: hidden;
-                margin-right: -1 * ($sl-action-size + (2 * $sl-action-margin));
+            &:hover {
+                color: $sl-action-highlight-blue;
+                /* background: #b4dcff; */
+            }
+            &.danger-btn:hover {
+                color: $sl-action-highlight-red;
+                /* background: #ffb4b4; */
             }
             &.overflow-btn {
                 -webkit-transition: -webkit-transform 0.15s;
@@ -66,14 +65,24 @@
                     color: $sl-action-highlight-green;
                     /* background: #bfeed6; */
                 }
-                &.session-open {
-                    -webkit-transform: rotate(90deg);
-                    transform: rotate(90deg);
-                }
             }
-            &.delete-btn:hover {
-                color: $sl-action-highlight-red;
-                /* background: #ffb4b4; */
+        }
+        &:not(.expanded) {
+            .default-hidden {
+                opacity: 0;
+                visibility: hidden;
+                margin-right: -1 * ($sl-action-size + (2 * $sl-action-margin));
+            }
+        }
+        &.expanded {
+            .overflow-btn {
+                -webkit-transform: rotate(90deg);
+                transform: rotate(90deg);
+            }
+            .default-shown {
+                opacity: 0;
+                visibility: hidden;
+                margin-right: -1 * ($sl-action-size + (2 * $sl-action-margin));
             }
         }
     }

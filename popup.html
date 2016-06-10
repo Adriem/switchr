@@ -20,51 +20,58 @@
             <h1 id="title">Switchr<small>by Adrian Moreno</small></h1>
 
             <div id="openedTabList">
+                <h2 class="section-header">Current session</h2>
+                <div class="input-group session-list-item">
+                    <button class="main-action">
+                            <!-- data-ng-click="restoreSession(activeSession.name)"> -->
+                        <div data-ng-class="{
+                                    'session-open': true
+                                }">
+                            <h2 class="session-title">
+                                {{ activeSession.name }}
+                            </h2>
+                            {{ activeSession.windowCount }} window(s),
+                            {{ activeSession.tabCount }} tab(s)
+                        </div>
+                    </button>
+                    <div class="single-actions"
+                                data-ng-class="{
+                                    'expanded': activeSession.open,
+                                }">
+                        <button class="default-shown"
+                            data-ng-click="restoreSession(activeSession.name)">
+                            <i class="fa fa-refresh"></i>
+                        </button>
+                        <button class="default-shown"
+                                data-ng-click="alert('Coming soon...')">
+                            <i class="fa fa-save"></i>
+                        </button>
+                        <button class="default-hidden"
+                                data-ng-click="alert('Coming soon...')">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                        <button class="default-hidden danger-btn"
+                                data-ng-click="removeSession(activeSession.name)">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                        <button class="overflow-btn"
+                                data-ng-click="activeSession.open = !activeSession.open">
+                            <i class="fa fa-ellipsis-v"></i>
+                        </button>
+                    </div>
+                </div>
 
+                <h2 class="section-header">Saved sessions</h2>
                 <p data-ng-if="sessionList.length === 0">
                     You have no sessions saved
                 </p>
 
-                <div data-ng-repeat="session in sessionList">
-                    <div class="input-group session-item">
-                        <button class="main-action"
-                                data-ng-click="restoreSession(session.name)">
-                            <div data-ng-class="{
-                                        'session-open': session.open
-                                    }">
-                                <h2 class="session-title">
-                                    {{ session.name }}
-                                </h2>
-                                {{ session.windowCount }} window(s),
-                                {{ session.tabCount }} tab(s)
-                            </div>
-                        </button>
-                        <div class="single-actions">
-                            <button class="edit-btn"
-                                    data-ng-class="{
-                                        'session-open': session.open,
-                                        'session-closed': !session.open
-                                    }"
-                                    data-ng-click="alert('Coming soon...')">
-                                <i class="fa fa-pencil"></i>
-                            </button>
-                            <button class="delete-btn"
-                                    data-ng-class="{
-                                        'session-open': session.open,
-                                        'session-closed': !session.open
-                                    }"
-                                    data-ng-click="removeSession(session.name)">
-                                <i class="fa fa-trash-o"></i>
-                            </button>
-                            <button class="overflow-btn"
-                                    data-ng-class="{
-                                        'session-open': session.open
-                                    }"
-                                    data-ng-click="session.open = !session.open">
-                                <i class="fa fa-ellipsis-v"></i>
-                            </button>
-                        </div>
-                    </div>
+                <div saved-session
+                        data-ng-repeat="session in sessionList | filter:{ name: '!' + activeSession.name }:true"
+                        name="session.name"
+                        info="session.windowCount + ' window(s), ' + session.tabCount + ' tab(s)'"
+                        on-load="restoreSession(name)"
+                        on-delete="removeSession(name)">
                 </div>
 
             </div>
