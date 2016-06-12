@@ -64,6 +64,15 @@ angular.module('switchr').service('SessionService', [
             }
         }
 
+        this.deactivateSession = function(name) {
+            if (localStorage.getItem(LocalStorageKeys.ACTIVE_SESSION)) {
+                localStorage.removeItem(LocalStorageKeys.ACTIVE_SESSION);
+                return Promise.resolve();
+            } else {
+                return Promise.reject();
+            }
+        }
+
         this.getActiveSession = function() {
             loadSessions();
             var _active = localStorage.getItem(LocalStorageKeys.ACTIVE_SESSION);

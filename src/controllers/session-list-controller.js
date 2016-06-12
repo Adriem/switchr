@@ -8,6 +8,7 @@ angular.module('switchr').controller('SessionListCtrl', [
                 if (sessionList.hasOwnProperty(key)){
                     _convertedSessionList.push({
                         name: key,
+                        windowList: sessionList[key],
                         windowCount: sessionList[key].length,
                         tabCount: sessionList[key].reduce(function(accum, value) {
                             return accum + value.length;
@@ -79,6 +80,17 @@ angular.module('switchr').controller('SessionListCtrl', [
                 }
                 return Promise.all(accum).then(function() {
                     return ChromeAPIService.closeWindows(results[1]);
+                });
+            });
+        }
+
+        $scope.closeSession = function() {
+            return Promise.all([
+                ChromeAPIService.getWindows(),
+                SessionService.deactivateSession()
+            ]).then(function(results) {
+                return ChromeAPIService.createWindow().then(function() {
+                    return ChromeAPIService.closeWindows(results[0]);
                 });
             });
         }
