@@ -1,4 +1,5 @@
 .session-list-item {
+    /* min-height: $sl-item-height; */
     height: $sl-item-height;
     padding: 0 $sl-item-padding-right 0 0;
     border-radius: $sl-item-border-radius;
@@ -27,8 +28,10 @@
             white-space: nowrap;
             display: block;
 
-            -webkit-transition: width 0.20s ease-in-out;
-            transition: width 0.20s ease-in-out;
+            -webkit-transition: width 0.20s linear;
+            transition: width 0.20s linear;
+            /* -webkit-transition: width 0.20s ease-in-out; */
+            /* transition: width 0.20s ease-in-out; */
 
             width: $sl-compact-main-width;
             &.session-open { width: $sl-expanded-main-width; }

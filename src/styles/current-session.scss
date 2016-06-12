@@ -1,0 +1,75 @@
+.badge {
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0px;
+    left: 5px;
+    font: 900 5pt Arial, sans-serif;
+    text-transform: uppercase;
+    padding: 1px;
+    padding-right: 4px;
+    background: #000;
+    color: #fff;
+    border-radius: 10px;
+}
+#current-session {
+    /* padding: 0 $list-item-padding-right 0 $list-item-padding-right; */
+    /* padding: 15px 0 20px; */
+    padding: 0 0 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    button {
+        cursor: pointer;
+        background: none;
+        border: none;
+        &:hover {
+            color: $sl-action-highlight-blue;
+            .badge { background: $sl-action-highlight-blue; }
+        }
+        &.danger-btn:hover {
+            color: $sl-action-highlight-red;
+            .badge { background: $sl-action-highlight-red; }
+        }
+    }
+
+    #current-session-header {
+        box-sizing: border-box;
+        /* padding: 0 ($sl-item-padding-right + 5) 0 $sl-item-padding-left; */
+        /* padding: 0 ($sl-item-padding-right + 5); */
+        padding: 0 $sl-item-padding-left;
+        width: 100%;
+        margin-bottom: 10px;
+        .session-title {
+            margin-top: 0;
+            margin-bottom: 0;
+            font-size: 13pt;
+        }
+        button {
+            font-size: 14px;
+            padding-top: 5px;
+        }
+    }
+
+    .current-window-list {
+        background: $sl-item-highlight-bg;
+        border-radius: 4px;
+        margin: 2px 15px;
+        padding: 3px;
+        .main-action {
+            i { font-size: 14px; }
+            font-size: 10pt;
+            text-align: left;
+        }
+        .single-action button {
+            font-size: 14px;
+        }
+    }
+
+    .action-group {
+        margin-top: 20px;
+        button {
+            width: $sl-action-size;
+            font-size: $sl-action-font-size;
+            padding: 0;
+        }
+    }
+}

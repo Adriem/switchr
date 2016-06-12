@@ -41,3 +41,16 @@
 #footer .single-actions button:hover {
     color: $footer-highlight;
 }
+#footer {
+    .action-group, .action { height: 100%; }
+    .action button {
+        text-transform: uppercase;
+        font: 900 8pt Arial,sans-serif;
+        width: initial;
+        height: 100%;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: rgba(0, 0, 0, 0.55);
+    }
+}

@@ -1,25 +1,47 @@
 .input-group {
     display: table;
-}
-.input-group .main-action {
-    box-sizing: border-box;
-    display: table-cell;
-    width: 100%;
-    float: left;
-    position: relative;
-    z-index: 2;
-}
-.input-group .single-actions {
-    box-sizing: border-box;
-    display: table-cell;
-    width: 1%;
-    position: relative;
-    vertical-align: middle;
-    white-space: nowrap;
-}
-.input-group .single-actions button {
-    position: relative;
-    display: inline-block;
-    z-index: 2;
+
+    .main-action {
+        box-sizing: border-box;
+        display: table-cell;
+        width: 100%;
+        float: left;
+        position: relative;
+        z-index: 2;
+    }
+    .single-actions {
+        box-sizing: border-box;
+        display: table-cell;
+        width: 1%;
+        position: relative;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+    .single-actions button {
+        position: relative;
+        display: inline-block;
+        z-index: 2;
+    }
 }
 
+.action-group {
+    display: table;
+    table-layout: fixed;
+
+    .action {
+        display: table-cell;
+        width: 1%;
+        float: none;
+        border-collapse: separate;
+        white-space: nowrap;
+        vertical-align: middle;
+        text-align: center;
+
+        button {
+            position: relative;
+            float: center;
+            width: 100%;
+            text-align: center;
+        }
+    }
+}
