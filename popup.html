@@ -20,101 +20,12 @@
             <h1 id="title">Switchr<small>by Adrian Moreno</small></h1>
 
             <div id="openedTabList">
-                <div class="input-group">
-                    <div class="main-action">
-                        <h2 class="section-header">Current session</h2>
-                    </div>
-                    <div class="single-actions">
-                        <button class="danger-btn"
-                                data-ng-click="closeSession()">
-                            <i class="fa fa-times"></i>
-                        </button>
-                    </div>
-                </div>
-                <div id="current-session">
-                    <div class="input-group" id="current-session-header">
-                        <div class="main-action">
-                                <h2 class="session-title"
-                                        data-ng-if="!activeSession.editTitle">
-                                    {{ activeSession.name }}
-                                </h2>
-                                <input class="session-title"
-                                        type="text"
-                                        data-ng-if="activeSession.editTitle"
-                                        data-ng-model="activeSession.name">
-                        </div>
-                        <div class="single-actions">
-                            <!-- <button class="success-btn" -->
-                                    <!-- data-ng-click="console.log('Coming soon...')"> -->
-                                <!-- <i class="fa fa-check"></i> -->
-                            <!-- </button> -->
-                            <!-- <button class="danger-btn" -->
-                                    <!-- data-ng-click="console.log('Coming soon...')"> -->
-                                <!-- <i class="fa fa-times"></i> -->
-                            <!-- </button> -->
-                            <!-- <button  -->
-                                    <!-- data-ng-click="activeSession.editTitle = !activeSession.editTitle"> -->
-                                <!-- <i class="fa fa-pencil"></i> -->
-                            <!-- </button> -->
-                        </div>
-                    </div>
-                    <div class="input-group current-window-list"
-                            data-ng-repeat="w in activeSession.windowList">
-                        <button class="main-action">
-                            <i class="fa fa-caret-right"></i>
-                            &nbsp;{{ w.length }} tab(s)
-                        </button>
-                        <div class="single-actions"
-                                    data-ng-class="{
-                                        'expanded': activeSession.open,
-                                    }">
-                            <button class="danger-btn"
-                                    data-ng-click="console.log('Coming soon...')">
-                                <i class="fa fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="action-group">
-                        <!-- <div class="action"> -->
-                            <!-- <button data-ng-click="saveSession(activeSession.name)"> -->
-                                <!-- <i class="fa fa-plus"></i> -->
-                            <!-- </button> -->
-                        <!-- </div> -->
-                        <div class="action">
-                            <button data-ng-click="restoreSession(activeSession.name)">
-                                <i class="fa fa-refresh"></i>
-                                <!-- &nbsp;Reload -->
-                            </button>
-                        </div>
-                        <div class="action">
-                            <button data-ng-click="activeSession.saveExpand = !activeSession.saveExpand">
-                                <i class="fa fa-save"></i>
-                                <!-- <span class="badge">&nbsp;All</span> -->
-                            </button>
-                        </div>
-                        <div class="action">
-                            <button data-ng-click="activeSession.editTitle = !activeSession.editTitle">
-                                <i class="fa fa-pencil"></i>
-                                <!-- &nbsp;Rename -->
-                            </button>
-                        </div>
-                        <div class="action">
-                            <button class="danger-btn"
-                                    data-ng-click="removeSession(activeSession.name)">
-                                <i class="fa fa-trash-o"></i>
-                                <!-- &nbsp;Delete -->
-                            </button>
-                        </div>
-                    </div>
-                    <div class="dropdown"
-                            data-ng-class="{ collapsed: !activeSession.saveExpand }">
-                        <button>Save current tab</button>
-                        <button>Save current window</button>
-                        <button data-ng-click="saveSession(activeSession.name)">
-                            Save all
-                        </button>
-                    </div>
-                </div>
+                <div current-session
+                        active-session="activeSession"
+                        on-close-session="closeSession()"
+                        on-save-session="saveSession(name)"
+                        on-restore-session="restoreSession(name)"
+                        on-remove-session="console.log('Coming soon...')"></div>
 
                 <h2 class="section-header">Saved sessions</h2>
                 <p data-ng-if="sessionList.length === 0">

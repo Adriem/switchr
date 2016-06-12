@@ -1,0 +1,89 @@
+<div class="input-group">
+    <div class="main-action">
+        <h2 class="section-header">Current session</h2>
+    </div>
+    <div class="single-actions">
+        <button class="danger-btn"
+                data-ng-click="onCloseSession()">
+            <i class="fa fa-times"></i>
+        </button>
+    </div>
+</div>
+<div id="current-session">
+
+    <div id="current-session-header">
+        <h2 class="session-title"
+                data-ng-show="!editTitle">
+            {{ activeSession.name }}
+        </h2>
+        <div class="input-group"
+                data-ng-show="editTitle">
+            <div class="main-action">
+                    <input class="session-title"
+                            type="text"
+                            data-ng-model="activeSession.name">
+            </div>
+            <div class="single-actions">
+                <button class="success-btn"
+                        data-ng-click="editTitle = false">
+                    <i class="fa fa-check"></i>
+                </button>
+                <button class="danger-btn"
+                        data-ng-click="editTitle = false">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="input-group current-window-list"
+            data-ng-repeat="w in activeSession.windowList">
+        <button class="main-action">
+            <i class="fa fa-caret-right"></i>
+            &nbsp;{{ w.length }} tab(s)
+        </button>
+        <div class="single-actions">
+            <button class="danger-btn"
+                    data-ng-click="console.log('Coming soon...')">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="action-group">
+        <div class="action">
+            <button data-ng-click="onRestoreSession({ name: activeSession.name })">
+                <i class="fa fa-refresh"></i>
+            </button>
+        </div>
+        <div class="action">
+            <button data-ng-click="saveMenuExpanded = !saveMenuExpanded">
+                <i class="fa fa-save"></i>
+            </button>
+        </div>
+        <div class="action">
+            <button data-ng-click="editTitle = !editTitle">
+                <i class="fa fa-pencil"></i>
+            </button>
+        </div>
+        <div class="action">
+            <button class="danger-btn"
+                data-ng-click="onRemoveSession({ name: activeSession.name })">
+                <i class="fa fa-trash-o"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="dropdown"
+            data-ng-class="{ collapsed: !saveMenuExpanded }">
+        <button data-ng-click="console.log('Coming soon...')">
+            Save current tab
+        </button>
+        <button data-ng-click="console.log('Coming soon...')">
+            Save current window
+        </button>
+        <button data-ng-click="onSaveSession({ name: activeSession.name })">
+            Save all
+        </button>
+    </div>
+</div>
