@@ -22,12 +22,10 @@
         background: none;
         border: none;
         &:hover {
-            color: $sl-action-highlight-blue;
-            .badge { background: $sl-action-highlight-blue; }
+            color: $blue;
         }
         &.danger-btn:hover {
-            color: $sl-action-highlight-red;
-            .badge { background: $sl-action-highlight-red; }
+            color: $red;
         }
     }
 
@@ -35,7 +33,7 @@
         box-sizing: border-box;
         /* padding: 0 ($sl-item-padding-right + 5) 0 $sl-item-padding-left; */
         /* padding: 0 ($sl-item-padding-right + 5); */
-        padding: 0 $sl-item-padding-left;
+        padding: 0 15px;
         width: 100%;
         margin-bottom: 10px;
         .session-title {
@@ -50,7 +48,8 @@
     }
 
     .current-window-list {
-        background: $sl-item-highlight-bg;
+        /* background: $sli-highlight-bg; */
+        background: #f8f8f8;
         border-radius: 4px;
         margin: 2px 15px;
         padding: 3px;
@@ -67,9 +66,7 @@
     .action-group {
         margin-top: 20px;
         button {
-            width: $sl-action-size;
-            font-size: $sl-action-font-size;
-            padding: 0;
+            @extend .action-button;
         }
     }
 }

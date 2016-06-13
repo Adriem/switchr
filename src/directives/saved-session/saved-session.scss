@@ -1,0 +1,83 @@
+@import "variables";
+@import "buttons";
+
+$sli-highlight-bg: lighten($main-bg, 35%);
+$sli-border-radius: 4px;
+$sli-height: 60px;
+$sli-title-size: 13pt;
+$sli-padding-left: 15px;
+$sli-padding-right: 5px;
+
+$sli-compact-main-width: 190px;
+$sli-expanded-main-width: 80px;
+
+$sli-collapsed-margin-right: -1 * $default-action-width;
+
+.session-list-item {
+    height: $sli-height;
+    padding: 0;
+    padding-right: $sli-padding-right;
+    border-radius: $sli-border-radius;
+
+    &:hover { background-color: $sli-highlight-bg; }
+
+    .main-action {
+        padding-left: $sli-padding-left;
+        text-align: left;
+        background: none;
+        border: none;
+        height: 100%;
+        vertical-align: middle;
+        cursor: pointer;
+
+        .session-title {
+            font-size: $sli-title-size;
+            margin: 0;
+            width: 100%;
+        }
+
+        * {
+            box-sizing: border-box;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            display: block;
+
+            width: $sli-compact-main-width;
+            transition: width 0.15s linear 0.05s;
+
+            &.session-open {
+                width: $sli-expanded-main-width;
+                transition: width 0.1s linear;
+            }
+        }
+    }
+
+    .single-actions {
+        &:not(.expanded) {
+            .default-hidden {
+                opacity: 0;
+                visibility: hidden;
+                margin-right: $sli-collapsed-margin-right;
+            }
+        }
+        &.expanded {
+            .overflow-btn { transform: rotate(90deg); }
+            .default-shown {
+                opacity: 0;
+                visibility: hidden;
+                margin-right: $sli-collapsed-margin-right;
+            }
+        }
+        button {
+            @extend .action-button;
+            &:not(.overflow-btn) {
+                transition: visibility 0.15s, opacity 0.15s, margin 0.15s ease-in-out;
+            }
+            &.overflow-btn {
+                @extend .action-button.success;
+                transition: transform 0.15s ease-in-out;
+            }
+        }
+    }
+}

@@ -6,11 +6,26 @@ $footer-height: 54px;
 $content-top: $header-height;
 $content-bottom: $footer-height;
 
+$item-border-radius: 4px;
+
 // Colors
 $main-bg: #6ac3ad;
 $white: #fff;
 /* $main-bg: #8dbdb1; */
 /* $main-bg: #f19b5e; */
+$blue: #0087ff;
+$green: #3fad49;
+$red: #d60e0e;
+/* $blue-highlight: #0087ff; */
+/* $green-highlight: #3fad49; */
+/* $red-highlight: #d60e0e; */
+
+// Z-indexes
+$modal-z-index: 100;
+
+/* $action-highlight-default: $blue-highlight; */
+/* $action-highlight-danger: $red-highlight; */
+/* $action-highlight-success: $green-highlight; */
 
 // Footer
 $footer-bg: $white;
@@ -33,19 +48,3 @@ $title-border: 1px solid darken($title-background, 20%);
 $section-header-font: 800 8pt Arial, sans-serif;
 $section-header-color: rgba(0, 0, 0, 0.55);
 $section-header-margin: 9px 0 3px;
-
-// List item
-$sl-item-height: 60px;
-$sl-item-padding-left: 15px;
-$sl-item-padding-right: 5px;
-$sl-item-title-size: 125%;
-$sl-item-border-radius: 4px;
-$sl-item-highlight-bg: lighten($main-bg, 35%);
-$sl-action-size: 32px;
-$sl-action-font-size: 18px;
-$sl-action-margin: 1px;
-$sl-action-highlight-blue: #0087ff;
-$sl-action-highlight-green: #3fad49;
-$sl-action-highlight-red: #d60e0e;
-$sl-compact-main-width: 190px;
-$sl-expanded-main-width: 60px;

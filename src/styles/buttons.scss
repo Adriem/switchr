@@ -1,0 +1,87 @@
+@import "variables";
+
+$default-color: #444;
+$primary-color: $blue;
+$success-color: $green;
+$danger-color: $red;
+
+$small-action-size: 14px;
+$default-action-size: 18px;
+$large-action-size: 24px;
+
+$lateral-btn-margin: 2px;
+$default-action-width: ($default-action-size + $lateral-btn-margin - 2) * 2;
+
+@mixin default-button() {
+    background: none;
+    border: none;
+    display: block;
+    cursor: pointer;
+}
+
+@mixin flat-button($color) {
+    @include default-button();
+    text-transform: uppercase;
+    font: bold 8pt Arial, sans-serif;
+    margin: 8px $lateral-btn-margin;
+    padding: 8px;
+    border-radius: 2px;
+    color: $color;
+    &:hover { background: rgba($color, 0.10); }
+    &:focus { background: rgba($color, 0.10); }
+    &:active { background: rgba($color, 0.20); }
+}
+
+@mixin action-button($size, $color) {
+    @include default-button();
+    font-size: $size;
+    width: ($size - 2) * 2;
+    height: ($size - 2) * 2;
+    border-radius: $size - 2;
+    margin: $lateral-btn-margin;
+    padding: 0;
+    vertical-align: middle;
+    color: $default-color;
+    &:hover { color: $color; }
+    &:active {
+        color: $color;
+        background: rgba($color, 0.20);
+    }
+}
+
+.flat-button {
+    @include flat-button($default-color);
+    &.primary { @include flat-button($primary-color); }
+    &.success { @include flat-button($success-color); }
+    &.danger { @include flat-button($danger-color); }
+}
+
+.action-button {
+    /* In order to vertically center 18px 'fa' icons, it is necesary to manually correct the padding */
+    @include action-button($default-action-size, $primary-color);
+    padding: ($default-action-size - 4) / 2;
+    &.success {
+        @include action-button($default-action-size, $success-color);
+        padding: ($default-action-size - 4) / 2;
+    }
+    &.danger {
+        @include action-button($default-action-size, $danger-color);
+        padding: ($default-action-size - 4) / 2;
+    }
+}
+.lg-action-button {
+    @include action-button($large-action-size, $primary-color);
+    &.success { @include action-button($large-action-size, $success-color); }
+    &.danger { @include action-button($large-action-size, $danger-color); }
+}
+.sm-action-button {
+    @include action-button($small-action-size, $primary-color);
+    &.success { @include action-button($small-action-size, $success-color); }
+    &.danger { @include action-button($small-action-size, $danger-color); }
+}
+.xs-action-button {
+    @include action-button($small-action-size, $primary-color);
+    &.success { @include action-button($small-action-size, $success-color); }
+    &.danger { @include action-button($small-action-size, $danger-color); }
+    &, &.success, &.danger { padding: 0; margin: 0 2px; }
+}

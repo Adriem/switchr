@@ -1,6 +1,7 @@
 <div class="session-list-item input-group">
 
         <button class="main-action"
+                data-ng-class="{ 'session-open': expanded }"
                 data-ng-click="load()">
             <div data-ng-class="{ 'session-open': expanded }">
                 <h2 class="session-title">{{ name }}</h2>
@@ -11,16 +12,16 @@
         <div class="single-actions"
                 data-ng-class="{ 'expanded': expanded }">
             <button class="default-hidden"
-                    title="Save..."
-                    data-ng-click="saveMenuExpanded = !saveMenuExpanded">
-                <i class="fa fa-save"></i>
-            </button>
-            <button class="default-hidden"
-                    title="Edit session">
-                    <!-- data-ng-click="onLoad({ name: name })"> -->
+                    title="Rename session"
+                    data-ng-click="onEdit({ name: name })">
                 <i class="fa fa-pencil"></i>
             </button>
-            <button class="danger-btn default-hidden"
+            <button class="default-hidden"
+                    title="Save..."
+                    data-ng-click="onSave({ name: name })">
+                <i class="fa fa-save"></i>
+            </button>
+            <button class="danger default-hidden"
                     title="Delete session"
                     data-ng-click="onDelete({ name: name })">
                 <i class="fa fa-trash-o"></i>

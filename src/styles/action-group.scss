@@ -18,9 +18,9 @@
         white-space: nowrap;
     }
     .single-actions button {
-        position: relative;
-        display: inline-block;
-        z-index: 2;
+        position: relative !important;
+        display: inline-block !important;
+        z-index: 2 !important;
     }
 }
 
@@ -38,10 +38,10 @@
         text-align: center;
 
         button {
-            position: relative;
-            float: center;
-            width: 100%;
-            text-align: center;
+            position: relative !important;
+            float: center !important;
+            text-align: center !important;
+            margin: 0 auto !important;
         }
     }
 }

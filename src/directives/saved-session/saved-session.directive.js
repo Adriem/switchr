@@ -6,15 +6,13 @@ angular.module('switchr').directive('savedSession', [
             scope: {
                 name: '=',
                 info: '=',
-                windowList: '=',
                 onLoad: '&',
                 onSave: '&',
-                onDelete: '&',
-                onRemoveWindow: '&'
+                onEdit: '&',
+                onDelete: '&'
             },
             link: function(scope, element) {
                 scope.expanded = false;
-                scope.saveMenuExpanded = false;
                 scope.load = function() {
                     if (!scope.expanded) scope.onLoad({ name: scope.name });
                 }
