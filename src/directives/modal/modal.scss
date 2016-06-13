@@ -1,0 +1,73 @@
+@import "variables";
+
+$modal-bg: $white;
+$modal-border-color: darken($modal-bg, 0.8);
+$modal-title-size: 12pt;
+$modal-padding: 10px;
+
+.modal-empty-space {
+    position: fixed;
+    z-index: $modal-z-index - 1;
+    width: 100%;
+    height: 100%;
+    transition: visibility 0.3s, opacity 0.3s;
+    &.hidden { opacity: 0; visibility: hidden; }
+}
+
+.modal {
+    width: 100%;
+    bottom: 0;
+    position: absolute;
+    z-index: $modal-z-index;
+    box-sizing: border-box;
+
+    background: $modal-bg;
+    border-top: 1px solid $modal-border-color;
+    box-shadow: 0 0 10px #aaa;
+
+    transition: transform 0.3s ease-in-out, visibility 0.1s, opacity 0.1s;
+
+    &.hidden {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(100%);
+        transition: transform 0.3s ease-in-out, visibility 0.1s linear 0.2s, opacity 0.1s linear 0.2s;
+    }
+
+    .modal-title {
+        font-size: $modal-title-size;
+        margin: $modal-padding;
+        box-sizing: border-box;
+        display: inline-block;
+    }
+
+    .modal-close-btn {
+        @extend .sm-action-button.danger;
+        margin-top: 9px;
+        float: right;
+    }
+
+    .modal-body {
+        max-height: 230px;
+        overflow-y: auto;
+        padding: 0 $modal-padding;
+    }
+
+    .modal-footer {
+        position: relative;
+        bottom: 0;
+        box-sizing: border-box;
+        width: 100%;
+        padding: 0 6px;
+        background: $modal-bg;
+        vertical-align: middle;
+        .align-left {
+            float: left;
+            display: inline-block;
+        }
+        .align-right {
+            float: right;
+            display: inline-block;
+        }
+    }
+}

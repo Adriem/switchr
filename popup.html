@@ -37,13 +37,41 @@
                         name="session.name"
                         info="session.windowCount + ' window(s), ' + session.tabCount + ' tab(s)'"
                         on-load="restoreSession(name)"
-                        on-delete="removeSession(name)">
+                        on-edit="openPopup('default-popup')"
+                        on-delete="openDeletePopup(name)">
                 </div>
 
             </div>
         </div>
     
-        <div data-footer></div>
+        <!-- <div data-footer></div> -->
+
+        <modal id="confirmDeletionPopup">
+            <modal-header>Delete session?</modal-header>
+            <!-- <modal-body>This action cannot be undone.</modal-body> -->
+            <modal-footer>
+                <button class="align-right flat-button danger"
+                        data-ng-click="removeSession(selectedSessionName)">
+                    Delete
+                </button>
+                <button class="align-right flat-button"
+                        data-ng-click="closePopup('confirm-deletion-popup')">
+                    Cancel
+                </button>
+            </modal-footer>
+        </modal>
+        <modal id="defaultPopup">
+            <modal-header>Some title</modal-header>
+            <modal-body>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in mi et tellus pretium vestibulum vel nec leo. Pellentesque aliquet velit eget nunc finibus pellentesque. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc dolor urna, rhoncus quis quam at, vulputate venenatis dolor. Morbi tristique, mi non volutpat rhoncus, nulla velit convallis odio, ac pharetra orci lectus id tortor. Morbi eu metus et justo lacinia mollis sed vitae risus. Cras sapien elit, tempus sit amet viverra ac, placerat vel tellus. Proin quis maximus dui.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in mi et tellus pretium vestibulum vel nec leo. Pellentesque aliquet velit eget nunc finibus pellentesque. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc dolor urna, rhoncus quis quam at, vulputate venenatis dolor. Morbi tristique, mi non volutpat rhoncus, nulla velit convallis odio, ac pharetra orci lectus id tortor. Morbi eu metus et justo lacinia mollis sed vitae risus. Cras sapien elit, tempus sit amet viverra ac, placerat vel tellus. Proin quis maximus dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in mi et tellus pretium vestibulum vel nec leo. Pellentesque aliquet velit eget nunc finibus pellentesque. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc dolor urna, rhoncus quis quam at, vulputate venenatis dolor. Morbi tristique, mi non volutpat rhoncus, nulla velit convallis odio, ac pharetra orci lectus id tortor. Morbi eu metus et justo lacinia mollis sed vitae risus. Cras sapien elit, tempus sit amet viverra ac, placerat vel tellus. Proin quis maximus dui.
+            </modal-body>
+            <modal-footer>
+                <button class="align-right flat-button primary">Just do it!</button>
+                <button class="align-left flat-button">Maybe...?</button>
+                <button class="align-right flat-button">Okno</button>
+            </modal-footer>
+        </modal>
 
     </div>
 </body>

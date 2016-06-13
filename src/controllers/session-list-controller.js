@@ -17,7 +17,7 @@ angular.module('switchr').controller('SessionListCtrl', [
                 }
             }
             return _convertedSessionList;
-        }
+        };
 
         function loadSessions() {
             return SessionService.getSessions()
@@ -51,7 +51,7 @@ angular.module('switchr').controller('SessionListCtrl', [
                     }
                 })
                 .catch(function(err) {console.error(err); });
-        }
+        };
 
         $scope.saveSession = function(name) {
             ChromeAPIService.getWindows()
@@ -66,7 +66,7 @@ angular.module('switchr').controller('SessionListCtrl', [
             .then(function(sessions) {
                 return loadSessions();
             });
-        }
+        };
 
         $scope.restoreSession = function(name) {
             return Promise.all([
@@ -82,7 +82,7 @@ angular.module('switchr').controller('SessionListCtrl', [
                     return ChromeAPIService.closeWindows(results[1]);
                 });
             });
-        }
+        };
 
         $scope.closeSession = function() {
             return Promise.all([
@@ -93,14 +93,27 @@ angular.module('switchr').controller('SessionListCtrl', [
                     return ChromeAPIService.closeWindows(results[0]);
                 });
             });
-        }
+        };
 
         $scope.removeSession = function(name) {
             return SessionService.removeSession(name)
             .then(function(sessions) {
+                $scope.closePopup('confirm-deletion-popup');
                 return loadSessions();
             });
-        }
+        };
+
+        $scope.openPopup = function(popupId) {
+            $scope.$broadcast(popupId + '-open');
+        };
+        $scope.closePopup = function(popupId) {
+            $scope.$broadcast(popupId + '-close');
+        };
+
+        $scope.openDeletePopup = function(name) {
+            $scope.selectedSessionName = name;
+            $scope.openPopup('confirm-deletion-popup');
+        };
 
         loadSessions();
     }]);
