@@ -5,7 +5,10 @@
                 data-ng-click="load()">
             <div data-ng-class="{ 'session-open': expanded }">
                 <h2 class="session-title">{{ name }}</h2>
-                {{ info }}
+                &nbsp;{{ info }}
+                <div class="status" data-ng-if="status">
+                    &nbsp;{{ status }}
+                </div>
             </div>
         </button>
 
@@ -15,11 +18,6 @@
                     title="Rename session"
                     data-ng-click="onEdit({ name: name })">
                 <i class="fa fa-pencil"></i>
-            </button>
-            <button class="default-hidden"
-                    title="Save..."
-                    data-ng-click="onSave({ name: name })">
-                <i class="fa fa-save"></i>
             </button>
             <button class="danger default-hidden"
                     title="Delete session"

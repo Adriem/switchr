@@ -1,13 +1,13 @@
-angular.module('switchr').directive('savedSession', [
+angular.module('switchr').directive('session', [
     function() {
         return {
-            templateUrl: 'dist/saved-session.directive.html',
+            templateUrl: 'dist/session.directive.html',
             restrict: 'AE',
             scope: {
                 name: '=',
                 info: '=',
+                status: '@',
                 onLoad: '&',
-                onSave: '&',
                 onEdit: '&',
                 onDelete: '&'
             },

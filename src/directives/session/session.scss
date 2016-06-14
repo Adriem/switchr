@@ -1,5 +1,5 @@
-@import "variables";
-@import "buttons";
+@import "styles/_variables";
+@import "styles/buttons";
 
 $sli-highlight-bg: lighten($main-bg, 35%);
 $sli-border-radius: 4px;
@@ -9,14 +9,17 @@ $sli-padding-left: 15px;
 $sli-padding-right: 5px;
 
 $sli-compact-main-width: 190px;
-$sli-expanded-main-width: 80px;
+$sli-expanded-main-width: 120px;
 
 $sli-collapsed-margin-right: -1 * $default-action-width;
 
 .session-list-item {
+    box-sizing: border-box;
     height: $sli-height;
     padding: 0;
     padding-right: $sli-padding-right;
+    padding-top: 10px;
+    padding-bottom: 10px;
     border-radius: $sli-border-radius;
 
     &:hover { background-color: $sli-highlight-bg; }
@@ -33,7 +36,12 @@ $sli-collapsed-margin-right: -1 * $default-action-width;
         .session-title {
             font-size: $sli-title-size;
             margin: 0;
+            margin-bottom: 2px;
             width: 100%;
+        }
+        .status {
+            font-style: italic;
+            margin-top: 2px;
         }
 
         * {

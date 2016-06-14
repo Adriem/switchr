@@ -4,15 +4,15 @@ angular.module('switchr').directive('currentSession', [
             templateUrl: 'dist/current-session.directive.html',
             restrict: 'AE',
             scope: {
-                activeSession: '=',
-                onCloseSession: '&',
-                onRestoreSession: '&',
-                onSaveSession: '&',
-                onRemoveSession: '&'
+                name: '=',
+                info: '=',
+                status: '@',
+                onClose: '&',
+                onRestore: '&',
+                onEdit: '&',
+                onDelete: '&'
             },
             link: function(scope, element) {
-                scope.saveMenuExpanded = false;
-                scope.editTitle = false;
             }
         };
     }]);

@@ -31,7 +31,7 @@ gulp.task('build:css', function() {
 });
 
 gulp.task('build:scss', function() {
-    return gulp.src('src/styles/main.scss')
+    return gulp.src('src/main.scss')
         .pipe(maps.init())
         .pipe(sass().on('error', sass.logError))
         .pipe(cssmin())

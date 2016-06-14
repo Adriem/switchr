@@ -13,42 +13,52 @@
 
 </head>
 <body data-ng-app="switchr">
+    <div data-ng-controller="SessionListCtrl">
 
-    <div id="sessionList" data-ng-controller="SessionListCtrl">
         <div id="content">
 
             <h1 id="title">Switchr<small>by Adrian Moreno</small></h1>
 
-            <div id="openedTabList">
+            <div id="sessionList">
                 <div current-session
-                        active-session="activeSession"
-                        on-close-session="closeSession()"
-                        on-save-session="saveSession(name)"
-                        on-restore-session="restoreSession(name)"
-                        on-remove-session="console.log('Coming soon...')"></div>
+                        name="activeSession.name"
+                        info="activeSession.windowCount + ' window(s) - ' + activeSession.tabCount + ' tab(s)'"
+                        status="Unsaved changes"
+                        on-close="closeSession()"
+                        on-reload="restoreSession(activeSession.name)"
+                        on-edit="openPopup('demo-popup')"
+                        on-delete="openDeletePopup(activeSession.name)">
+                        <!-- on-save="saveSession(activeSession.name)" -->
+                </div>
 
-                <h2 class="section-header">Saved sessions</h2>
+                <div class="section-header">
+                    <h2 class="section-title">Saved sessions</h2>
+                </div>
+
                 <p data-ng-if="sessionList.length === 0">
                     You have no sessions saved
                 </p>
 
-                <div saved-session
+                <div session
                         data-ng-repeat="session in sessionList | filter:{ name: '!' + activeSession.name }:true"
                         name="session.name"
-                        info="session.windowCount + ' window(s), ' + session.tabCount + ' tab(s)'"
+                        info="session.windowCount + ' window(s) - ' + session.tabCount + ' tab(s)'"
                         on-load="restoreSession(name)"
-                        on-edit="openPopup('default-popup')"
+                        on-edit="openPopup('demo-popup')"
                         on-delete="openDeletePopup(name)">
                 </div>
-
             </div>
-        </div>
-    
-        <!-- <div data-footer></div> -->
 
+            <button class="floating-action-button"
+                    data-ng-click="openPopup('demo-popup')">
+                <i class="fa fa-save"></i>
+            </button>
+
+        </div>
+
+    
         <modal id="confirmDeletionPopup">
             <modal-header>Delete session?</modal-header>
-            <!-- <modal-body>This action cannot be undone.</modal-body> -->
             <modal-footer>
                 <button class="align-right flat-button danger"
                         data-ng-click="removeSession(selectedSessionName)">
@@ -60,7 +70,8 @@
                 </button>
             </modal-footer>
         </modal>
-        <modal id="defaultPopup">
+
+        <modal id="demoPopup">
             <modal-header>Some title</modal-header>
             <modal-body>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in mi et tellus pretium vestibulum vel nec leo. Pellentesque aliquet velit eget nunc finibus pellentesque. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc dolor urna, rhoncus quis quam at, vulputate venenatis dolor. Morbi tristique, mi non volutpat rhoncus, nulla velit convallis odio, ac pharetra orci lectus id tortor. Morbi eu metus et justo lacinia mollis sed vitae risus. Cras sapien elit, tempus sit amet viverra ac, placerat vel tellus. Proin quis maximus dui.

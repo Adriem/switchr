@@ -9,6 +9,10 @@ $small-action-size: 14px;
 $default-action-size: 18px;
 $large-action-size: 24px;
 
+$small-fab-size: 40px;
+$fab-size: 52px;
+$large-fab-size: 56px;
+
 $lateral-btn-margin: 2px;
 $default-action-width: ($default-action-size + $lateral-btn-margin - 2) * 2;
 
@@ -49,6 +53,32 @@ $default-action-width: ($default-action-size + $lateral-btn-margin - 2) * 2;
     }
 }
 
+@mixin floating-action-button($size, $fgcolor, $bgcolor) {
+    color: $fgcolor;
+    background-color: $bgcolor;
+    border: none;
+    box-shadow: 0 2px 15px #aaa;
+    font-size: $large-action-size;
+    width: $size;
+    height: $size;
+    border-radius: $size / 2;
+    z-index: $fab-z-index;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    cursor: pointer;
+    &:hover {
+        background-color: lighten($bgcolor, 5%);
+        box-shadow: 0 4px 15px #999;
+        transform: translateY(-1px);
+    }
+    &:active {
+        background-color: darken($bgcolor, 5%);
+        box-shadow: 0 0px 10px #aaa;
+        transform: translateY(1px);
+    }
+}
+
 .flat-button {
     @include flat-button($default-color);
     &.primary { @include flat-button($primary-color); }
@@ -84,4 +114,8 @@ $default-action-width: ($default-action-size + $lateral-btn-margin - 2) * 2;
     &.success { @include action-button($small-action-size, $success-color); }
     &.danger { @include action-button($small-action-size, $danger-color); }
     &, &.success, &.danger { padding: 0; margin: 0 2px; }
+}
+
+.floating-action-button {
+    @include floating-action-button($fab-size, $main-title-color, $main-bg);
 }

@@ -1,39 +1,25 @@
 // Dimensions
 $app-width: 300px;
 $app-height: 470px;
-$header-height: 0;
-$footer-height: 0;
-/* $footer-height: 54px; */
-$content-top: $header-height;
-$content-bottom: $footer-height;
+$toolbar-height: 54px; // Not used yet
+$content-top: 0;
+$content-bottom: 0;
 
 $item-border-radius: 4px;
 
 // Colors
-$main-bg: #6ac3ad;
-$white: #fff;
 /* $main-bg: #8dbdb1; */
 /* $main-bg: #f19b5e; */
+/* $accent-highlight: #00ddaa; */
+$main-bg: #6ac3ad;
+$white: #fff;
 $blue: #0087ff;
 $green: #3fad49;
 $red: #d60e0e;
-/* $blue-highlight: #0087ff; */
-/* $green-highlight: #3fad49; */
-/* $red-highlight: #d60e0e; */
 
-// Z-indexes
-$modal-z-index: 100;
-
-/* $action-highlight-default: $blue-highlight; */
-/* $action-highlight-danger: $red-highlight; */
-/* $action-highlight-success: $green-highlight; */
-
-// Footer
-$footer-bg: $white;
-$footer-fg: #678;
-$footer-border: 1px solid #ccc;
-$footer-padding: 8px;
-$footer-highlight: #00ddaa;
+// z-indexes
+$modal-z-index: 1000;
+$fab-z-index: 100;
 
 // Title
 $main-title-font: bold 27pt Georgia, serif;

@@ -25,13 +25,20 @@
     }
 }
 
-.section-header {
-    text-transform: uppercase;
-    font: $section-header-font;
-    margin-bottom: $section-header-margin;
-    color: $section-header-color;
-}
-
-#openedTabList {
+#sessionList {
     padding: 5px 8px;
+    margin-bottom: 64px;
+
+    .section-header {
+        color: $section-header-color;
+        vertical-align: middle;
+        .section-title {
+            text-transform: uppercase;
+            font: $section-header-font;
+        }
+        button {
+            @extend .sm-action-button;
+            &:not(:hover) { color: $section-header-color !important; }
+        }
+    }
 }

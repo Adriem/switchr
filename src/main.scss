@@ -1,0 +1,16 @@
+@import "styles/_variables";
+
+body {
+    width: $app-width;
+    height: $app-height;
+    margin: 0;
+    overflow: none;
+
+    *:hover, *:active, *:focus { outline: none; }
+
+    @import "styles/action-group";
+    @import "styles/buttons";
+    @import "styles/content";
+    @import "directives/session/session";
+    @import "directives/modal/modal";
+}
