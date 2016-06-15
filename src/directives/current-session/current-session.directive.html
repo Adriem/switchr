@@ -6,7 +6,8 @@
         </div>
         <div class="single-actions">
             <button title="Discard changes and reload session"
-                    data-ng-click="onRestore({ name: activeSession.name })">
+                    data-ng-if="sessionData"
+                    data-ng-click="onRestore({ name: sessionData.name })">
                 <i class="fa fa-refresh"></i>
             </button>
             <button class="danger"
@@ -18,12 +19,11 @@
     </div>
 
     <div session
-            name="name"
+            name="sessionData ? sessionData.name : 'Unsaved session'"
             info="info"
             status="{{ status }}"
-            on-edit="onEdit({ name: name })"
-            on-delete="onDelete({ name: name })">
-            <!-- TODO on-load? -->
+            on-edit="onEdit({ name: sessionData ? sessionData.name : null })"
+            on-delete="onDelete({ name: sessionData ? sessionData.name : null })">
     </div>
 
 </div>

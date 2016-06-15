@@ -43,9 +43,19 @@ $modal-padding: 10px;
 
     .modal-close-btn {
         @extend .sm-action-button.danger;
-        margin-top: 9px;
         float: right;
+        margin-top: 9px;
+        margin-right: 5px;
     }
+    /* .modal-header { */
+        /* background: #f00 !important; */
+    /* } */
+    /* .modal-body { */
+        /* background: #ff0 !important; */
+    /* } */
+    /* .modal-footer { */
+        /* background: #f0f !important; */
+    /* } */
 
     .modal-body {
         max-height: 230px;

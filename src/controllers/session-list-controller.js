@@ -2,118 +2,126 @@ angular.module('switchr').controller('SessionListCtrl', [
     '$scope', 'SessionService', 'ChromeAPIService',
     function($scope, SessionService, ChromeAPIService) {
 
+        function convertSession(session) {
+            if (session) return {
+                name: session.name,
+                windowList: session.windowList,
+                windowCount: session.windowList.length,
+                tabCount: session.windowList.reduce(function(accum, value) {
+                    return accum + value.length;
+                }, 0)
+            };
+            else return null;
+        }
         function convertSessionList(sessionList) {
-            var _convertedSessionList = []
-            for (key in sessionList) {
-                if (sessionList.hasOwnProperty(key)){
-                    _convertedSessionList.push({
-                        name: key,
-                        windowList: sessionList[key],
-                        windowCount: sessionList[key].length,
-                        tabCount: sessionList[key].reduce(function(accum, value) {
-                            return accum + value.length;
-                        }, 0)
-                    });
-                }
+            var _convertedSessionList = [];
+            for (var i = 0; i < sessionList.length; i++) {
+                _convertedSessionList.push(convertSession(sessionList[i]));
             }
             return _convertedSessionList;
-        };
-
+        }
         function loadSessions() {
-            return SessionService.getSessions()
-                .then(function(sessions) {
+            return SessionService.getAllSessions()
+                .then(function(state) {
                     $scope.$apply(function() {
-                        $scope.sessionList = convertSessionList(sessions);
+                        $scope.sessionList = state.sessionList;
+                        $scope.activeSession = state.activeSession;
                     });
-                    return SessionService.getActiveSession();
                 })
-                .then(function(activeSession) {
-                    if (activeSession) {
-                        $scope.$apply(function() {
-                            var _aux = {};
-                            _aux[activeSession.name] = activeSession.data;
-                            $scope.activeSession = convertSessionList(_aux)[0];
-                        });
-                    } else {
-                        return ChromeAPIService.getWindows()
-                            .then(function(windows) {
-                                var windowList = windows.map(function(_window) {
-                                    return _window.tabs.map(function(_tab) {
-                                        return _tab.url;
-                                    });
-                                });
-                                $scope.$apply(function() {
-                                    $scope.activeSession = convertSessionList({
-                                        "Unsaved session*": windowList
-                                    })[0];
-                                });
-                            });
-                    }
-                })
-                .catch(function(err) {console.error(err); });
+                .catch(function(err) { console.error(err); });
         };
 
-        $scope.saveSession = function(name) {
-            ChromeAPIService.getWindows()
-            .then(function(windows) {
-                var windowList = windows.map(function(_window) {
-                    return _window.tabs.map(function(_tab) {
-                        return _tab.url;
-                    });
-                });
-                return SessionService.createSession(name, windowList);
-            })
-            .then(function(sessions) {
-                return loadSessions();
-            });
-        };
+        // $scope.saveSession = function(name) {
+            // ChromeAPIService.getWindows()
+            // .then(function(windows) {
+                // var windowList = windows.map(function(_window) {
+                    // return _window.tabs.map(function(_tab) {
+                        // return _tab.url;
+                    // });
+                // });
+                // return SessionService.createSession(name, windowList);
+            // })
+            // .then(function(sessions) {
+                // return loadSessions();
+            // });
+        // };
+
+        // $scope.createSession = function(name) {
+            // ChromeAPIService.getWindows()
+            // .then(function(windows) {
+                // var windowList = windows.map(function(_window) {
+                    // return _window.tabs.map(function(_tab) {
+                        // return _tab.url;
+                    // });
+                // });
+                // return SessionService.createSession(name, windowList);
+            // })
+            // .then(function(sessions) {
+                // return loadSessions();
+            // })
+            // .catch(function(error) {
+                // console.log(error);
+            // });
+        // };
 
         $scope.restoreSession = function(name) {
-            return Promise.all([
-                SessionService.getSession(name),
-                ChromeAPIService.getWindows(),
-                SessionService.activateSession(name)
-            ]).then(function(results) {
-                var accum = [];
-                for (var i = 0; i < results[0].length; i++) {
-                    accum.push(ChromeAPIService.createWindow(results[0][i]));
-                }
-                return Promise.all(accum).then(function() {
-                    return ChromeAPIService.closeWindows(results[1]);
-                });
-            });
+            return SessionService.loadSession(name);
         };
-
         $scope.closeSession = function() {
-            return Promise.all([
-                ChromeAPIService.getWindows(),
-                SessionService.deactivateSession()
-            ]).then(function(results) {
-                return ChromeAPIService.createWindow().then(function() {
-                    return ChromeAPIService.closeWindows(results[0]);
-                });
-            });
+            return SessionService.closeSession();
         };
-
+        $scope.renameSession = function(oldName, newName) {
+            return SessionService.renameSession(oldName, newName)
+                .then(function(sessions) {
+                    $scope.closeModal('rename-modal');
+                    return loadSessions();
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+        };
         $scope.removeSession = function(name) {
             return SessionService.removeSession(name)
-            .then(function(sessions) {
-                $scope.closePopup('confirm-deletion-popup');
-                return loadSessions();
-            });
+                .then(function(sessions) {
+                    $scope.closeModal('delete-modal');
+                    return loadSessions();
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
         };
 
-        $scope.openPopup = function(popupId) {
-            $scope.$broadcast(popupId + '-open');
+        // Modal control
+        $scope.openModal = function(modalId) {
+            $scope.$broadcast(modalId + '-open');
         };
-        $scope.closePopup = function(popupId) {
-            $scope.$broadcast(popupId + '-close');
-        };
-
-        $scope.openDeletePopup = function(name) {
-            $scope.selectedSessionName = name;
-            $scope.openPopup('confirm-deletion-popup');
+        $scope.closeModal = function(modalId) {
+            $scope.$broadcast(modalId + '-close');
+            if ($scope.modalData) $scope.modalData = null;
         };
 
+        // Action specific modals
+        // $scope.openSaveModal = function() {
+            // $scope.openModal('save-modal');
+        // };
+        $scope.openRenameModal = function(name) {
+            $scope.modalData = {
+                oldName: name,
+                newName: name,
+                activeSession: $scope.activeSession
+                        && name == $scope.activeSession.name
+            };
+            $scope.openModal('rename-modal');
+        };
+        $scope.openDeleteModal = function(name) {
+            $scope.modalData = { name: name };
+            $scope.openModal('delete-modal');
+        };
+        $scope.afterSave = function() {
+            loadSessions();
+        };
+
+        // Load session on controller load
         loadSessions();
+
     }]);

@@ -20,15 +20,12 @@
             <h1 id="title">Switchr<small>by Adrian Moreno</small></h1>
 
             <div id="sessionList">
-                <div current-session
-                        name="activeSession.name"
-                        info="activeSession.windowCount + ' window(s) - ' + activeSession.tabCount + ' tab(s)'"
-                        status="Unsaved changes"
-                        on-close="closeSession()"
-                        on-reload="restoreSession(activeSession.name)"
-                        on-edit="openPopup('demo-popup')"
-                        on-delete="openDeletePopup(activeSession.name)">
-                        <!-- on-save="saveSession(activeSession.name)" -->
+                <div data-current-session
+                        data-session-data="activeSession"
+                        data-on-close="closeSession()"
+                        data-on-restore="restoreSession(name)"
+                        data-on-edit="openRenameModal(name)"
+                        data-on-delete="openDeleteModal(name)">
                 </div>
 
                 <div class="section-header">
@@ -39,48 +36,55 @@
                     You have no sessions saved
                 </p>
 
-                <div session
-                        data-ng-repeat="session in sessionList | filter:{ name: '!' + activeSession.name }:true"
-                        name="session.name"
-                        info="session.windowCount + ' window(s) - ' + session.tabCount + ' tab(s)'"
-                        on-load="restoreSession(name)"
-                        on-edit="openPopup('demo-popup')"
-                        on-delete="openDeletePopup(name)">
+                <div data-session
+                        data-ng-repeat="session in sessionList
+                                        | filter:{ name: '!' + activeSession.name }:true"
+                        data-name="session.name"
+                        data-info="session.getWindowCount() + ' window(s) - ' + session.getTabCount() + ' tab(s)'"
+                        data-on-load="restoreSession(name)"
+                        data-on-edit="openRenameModal(name)"
+                        data-on-delete="openDeleteModal(name)">
                 </div>
             </div>
 
-            <button class="floating-action-button"
-                    data-ng-click="openPopup('demo-popup')">
-                <i class="fa fa-save"></i>
-            </button>
-
         </div>
 
-    
-        <modal id="confirmDeletionPopup">
-            <modal-header>Delete session?</modal-header>
+        <div data-save-control
+                data-session-list="sessionList"
+                data-active-session="activeSession"
+                data-after-save="afterSave()">
+        </div>
+
+        <modal id="renameModal">
+            <modal-header>Rename session</modal-header>
+            <modal-body>
+                <input type="text" data-ng-model="modalData.newName">
+            </modal-body>
             <modal-footer>
-                <button class="align-right flat-button danger"
-                        data-ng-click="removeSession(selectedSessionName)">
-                    Delete
+                <button class="align-right flat-button primary"
+                        data-ng-click="renameSession(modalData.oldName,
+                                                     modalData.newName,
+                                                     modalData.activeSession)">
+                    Rename
                 </button>
                 <button class="align-right flat-button"
-                        data-ng-click="closePopup('confirm-deletion-popup')">
+                        data-ng-click="closeModal('rename-modal')">
                     Cancel
                 </button>
             </modal-footer>
         </modal>
 
-        <modal id="demoPopup">
-            <modal-header>Some title</modal-header>
-            <modal-body>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in mi et tellus pretium vestibulum vel nec leo. Pellentesque aliquet velit eget nunc finibus pellentesque. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc dolor urna, rhoncus quis quam at, vulputate venenatis dolor. Morbi tristique, mi non volutpat rhoncus, nulla velit convallis odio, ac pharetra orci lectus id tortor. Morbi eu metus et justo lacinia mollis sed vitae risus. Cras sapien elit, tempus sit amet viverra ac, placerat vel tellus. Proin quis maximus dui.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in mi et tellus pretium vestibulum vel nec leo. Pellentesque aliquet velit eget nunc finibus pellentesque. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc dolor urna, rhoncus quis quam at, vulputate venenatis dolor. Morbi tristique, mi non volutpat rhoncus, nulla velit convallis odio, ac pharetra orci lectus id tortor. Morbi eu metus et justo lacinia mollis sed vitae risus. Cras sapien elit, tempus sit amet viverra ac, placerat vel tellus. Proin quis maximus dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in mi et tellus pretium vestibulum vel nec leo. Pellentesque aliquet velit eget nunc finibus pellentesque. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc dolor urna, rhoncus quis quam at, vulputate venenatis dolor. Morbi tristique, mi non volutpat rhoncus, nulla velit convallis odio, ac pharetra orci lectus id tortor. Morbi eu metus et justo lacinia mollis sed vitae risus. Cras sapien elit, tempus sit amet viverra ac, placerat vel tellus. Proin quis maximus dui.
-            </modal-body>
+        <modal id="deleteModal">
+            <modal-header>Delete session?</modal-header>
             <modal-footer>
-                <button class="align-right flat-button primary">Just do it!</button>
-                <button class="align-left flat-button">Maybe...?</button>
-                <button class="align-right flat-button">Okno</button>
+                <button class="align-right flat-button danger"
+                        data-ng-click="removeSession(modalData.name)">
+                    Delete
+                </button>
+                <button class="align-right flat-button"
+                        data-ng-click="closeModal('delete-modal')">
+                    Cancel
+                </button>
             </modal-footer>
         </modal>
 
