@@ -1,18 +1,22 @@
 angular.module('switchr').directive('currentSession', [
-    function() {
+    'ChromeAPIService',
+    function(ChromeAPIService) {
         return {
             templateUrl: 'dist/current-session.directive.html',
             restrict: 'AE',
             scope: {
-                name: '=',
-                info: '=',
-                status: '@',
+                sessionData: '=',
                 onClose: '&',
                 onRestore: '&',
                 onEdit: '&',
                 onDelete: '&'
             },
-            link: function(scope, element) {
+            link: function(scope) {
+                ChromeAPIService.getWindows().then(function(openedWindows) {
+                    scope.$apply(function() {
+                        scope.currentSession = new switchr.Session('', openedWindows);
+                    });
+                });
             }
         };
     }]);

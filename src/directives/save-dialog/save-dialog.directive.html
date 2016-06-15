@@ -1,0 +1,75 @@
+<div id="saveControl">
+
+    <button class="floating-action-button"
+            data-ng-click="open()">
+        <i class="fa fa-save"></i>
+    </button>
+
+    <form modal id="saveModal">
+        <modal-header>Save session</modal-header>
+        <modal-body>
+            <!-- <strong>This is a mock!</strong> Here you'd select which windows -->
+            <!-- and tabs you want to save! -->
+            <!-- <ul><li data-ng-repeat="window in currentSession.windowList"> -->
+                <!-- Window {{ $index }}: -->
+                <!-- <ul><li data-ng-repeat="tab in window.tabList"> -->
+                    <!-- {{ tab.url }} -->
+                <!-- </li></ul> -->
+            <!-- </li></ul> -->
+        </modal-body>
+        <modal-footer>
+            <div id="saveDestinationGroup">
+                <input type="text"
+                        id="newSessionName"
+                        placeholder="New session name"
+                        class="text-input"
+                        data-ng-class=" { expanded: !saveDestination.existingSession }"
+                        data-ng-model="saveDestination.newSession">
+
+                <select id="saveDestination"
+                        class="text-input"
+                        data-ng-class=" { expanded: saveDestination.existingSession }"
+                        data-ng-model="saveDestination.existingSession">
+                    <option
+                            data-ng-if="activeSession"
+                            value="{{ activeSession.name }}">
+                        {{ activeSession.name }} - Current session
+                    </option>
+                    <option data-ng-repeat="session in sessionList
+                            | filter:{ name: '!' + activeSession.name }:true"
+                            value="{{ session.name }}">
+                        {{ session.name }}
+                    </option>
+                    <option value="">New session</option>
+                </select>
+            </div>
+
+            <!-- [> <select class="align-left flat-button" <] -->
+            <!-- <select class="align-left text-input" -->
+                    <!-- id="saveDestination" -->
+                    <!-- data-ng-model="saveContent"> -->
+                <!-- <option value="tab"> -->
+                    <!-- Save current tab -->
+                <!-- </option> -->
+                <!-- <option value="window"> -->
+                    <!-- Save current window -->
+                <!-- </option> -->
+                <!-- <option value="all"> -->
+                    <!-- Save all and replace -->
+                <!-- </option> -->
+                <!-- <option value="custom"> -->
+                    <!-- Something more... -->
+                <!-- </option> -->
+            <!-- </select> -->
+
+            <button class="align-right flat-button primary"
+                    data-ng-click="save()">
+                Save
+            </button>
+            <button class="align-right flat-button"
+                    data-ng-click="close()">
+                Cancel
+            </button>
+        </modal-footer>
+    </form>
+</div>

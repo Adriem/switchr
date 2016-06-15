@@ -16,12 +16,14 @@
                 data-ng-class="{ 'expanded': expanded }">
             <button class="default-hidden"
                     title="Rename session"
-                    data-ng-click="onEdit({ name: name })">
+                    data-ng-click="onEdit({ name: name })"
+                    ng-disabled="editButtonDisabled">
                 <i class="fa fa-pencil"></i>
             </button>
             <button class="danger default-hidden"
                     title="Delete session"
-                    data-ng-click="onDelete({ name: name })">
+                    data-ng-click="onDelete({ name: name })"
+                    ng-disabled="deleteButtonDisabled">
                 <i class="fa fa-trash-o"></i>
             </button>
             <button class="overflow-btn"

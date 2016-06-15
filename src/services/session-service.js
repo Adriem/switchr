@@ -1,91 +1,94 @@
 angular.module('switchr').service('SessionService', [
-    'LocalStorageKeys',
-    function(LocalStorageKeys) {
+    'LocalStorageKeys', 'SessionRepositoryService', 'ChromeAPIService',
+    function(LocalStorageKeys, SessionRepositoryService, ChromeAPIService) {
 
-        var sessions = null;
-
-        function cloneSessions() {
-            var _clone = {};
-            for (key in sessions) if (sessions.hasOwnProperty(key)) {
-                _clone[key] = sessions[key].map(function(item) {
-                    return item.slice(0);
-                });
-            }
-            return _clone;
+        function getActiveSession(name) {
+            return localStorage.getItem(LocalStorageKeys.ACTIVE_SESSION);
         }
-
-        function loadSessions() {
-            if (!sessions || sessions === {}) {
-                var _json = localStorage.getItem(LocalStorageKeys.SESSIONS);
-                sessions = JSON.parse(_json || "{}");
+        function setActiveSession(name) {
+            if (name) {
+                localStorage.setItem(LocalStorageKeys.ACTIVE_SESSION, name);
+            } else {
+                localStorage.removeItem(LocalStorageKeys.ACTIVE_SESSION);
             }
-        }
-
-        function saveSessions() {
-            var _json = JSON.stringify(sessions);
-            localStorage.setItem(LocalStorageKeys.SESSIONS, _json);
         }
 
         this.getSession = function(name) {
-            loadSessions();
-            return Promise.resolve(cloneSessions()[name]);
+            return SessionRepositoryService.findSession(name);
         };
 
-        this.getSessions = function() {
-            loadSessions();
-            return Promise.resolve(cloneSessions());
+        this.getAllSessions = function() {
+            var state = {};
+            return SessionRepositoryService.findAllSessions()
+                .then(function(sessions) {
+                    var activeSession = getActiveSession();
+                    state.sessionList = sessions;
+                    if (activeSession) {
+                        return SessionRepositoryService
+                                .findSessionByName(activeSession);
+                    } else {
+                        return null;
+                    }
+                })
+                .then(function(activeSession) {
+                    state.activeSession = activeSession;
+                    return state;
+                });
         };
 
-        this.createSession = function(name, windowList) {
-            loadSessions();
-            var _name = windowList ? name : 'default';
-            var _windowList = windowList || name;
-            sessions[_name] = _windowList;
-            saveSessions();
-            return Promise.resolve(sessions[_name]);
+        this.loadSession = function(name, keepPrevious) {
+            var activeSession, openedWindows;
+            return SessionRepositoryService.findSessionByName(name)
+                .then(function(session) {
+                    activeSession = session;
+                    setActiveSession(session.name);
+                    return ChromeAPIService.getWindows();
+                })
+                .then(function(windows) {
+                    openedWindows = windows;
+                    return ChromeAPIService.createWindows(activeSession.windowList);
+                })
+                .then(function() {
+                    if (!keepPrevious) {
+                        return ChromeAPIService.closeWindows(openedWindows);
+                    }
+                });
+        };
+
+        this.closeSession = function() {
+            var windowList;
+            setActiveSession(null);
+            return ChromeAPIService.getWindows()
+                .then(function(windows) {
+                    windowList = windows;
+                    return ChromeAPIService.createWindows([new switchr.Window()]);
+                })
+                .then(function() {
+                    return ChromeAPIService.closeWindows(windowList);
+                });
         };
 
         this.removeSession = function(name) {
-            loadSessions();
-            _deletedSession = sessions[name];
-            delete sessions[name];
-            saveSessions();
-            return Promise.resolve(_deletedSession);
+            if (name === getActiveSession()) setActiveSession(null);
+            return SessionRepositoryService.removeSession(name);
         };
 
-        this.activateSession = function(name) {
-            loadSessions();
-            // if (sessions.filter(function(x) { return x.name === name; })) {
-            if (sessions[name]) {
-                localStorage.setItem(LocalStorageKeys.ACTIVE_SESSION, name);
-                return Promise.resolve(cloneSessions()[name]);
-            } else {
-                return Promise.reject();
-            }
-        }
-
-        this.deactivateSession = function(name) {
-            if (localStorage.getItem(LocalStorageKeys.ACTIVE_SESSION)) {
-                localStorage.removeItem(LocalStorageKeys.ACTIVE_SESSION);
-                return Promise.resolve();
-            } else {
-                return Promise.reject();
-            }
-        }
-
-        this.getActiveSession = function() {
-            loadSessions();
-            var _active = localStorage.getItem(LocalStorageKeys.ACTIVE_SESSION);
-            if (!_active) {
-                return Promise.resolve();
-            } else if (sessions[_active]) {
-                return Promise.resolve({
-                    name: _active,
-                    data: cloneSessions()[_active]
+        this.renameSession = function(oldName, newName) {
+            if (oldName === getActiveSession()) setActiveSession(newName);
+            return SessionRepositoryService.findSessionByName(oldName)
+                .then(function(session) {
+                    session.name = newName;
+                    return SessionRepositoryService.updateSession(oldName, session);
                 });
-            } else {
-                return Promise.reject();
-            }
-        }
+        };
+
+        this.createSession = function(session) {
+            setActiveSession(session.name);
+            return SessionRepositoryService.insertSession(session);
+        };
+
+        this.saveSession = function(session) {
+            return SessionRepositoryService.updateSession(session.name, session);
+        };
 
     }]);

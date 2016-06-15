@@ -46,8 +46,8 @@ gulp.task('build:scss', function() {
 gulp.task('build:js', function(next) {
     return gulp.src(['src/app.js', 'src/**/*.js'])
             .pipe(maps.init())
-            .pipe(concat('script.js').on('error', util.log))
             .pipe(uglify({ mangle: false }).on('error', util.log))
+            .pipe(concat('script.js').on('error', util.log))
             .pipe(rename({ extname: '.min.js' }))
             .pipe(maps.write())
             .pipe(gulp.dest('dist/'));
