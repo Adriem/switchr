@@ -1,10 +1,17 @@
 {
     "manifest_version": 2,
     "name": "Switchr",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "description": "This extension enables you to save tabs and windows, so you can restore them later",
+    "icons": {
+        "16": "img/icon-16.png",
+        "19": "img/icon-19.png",
+        "32": "img/icon-32.png",
+        "48": "img/icon-48.png",
+        "128": "img/icon-128.png"
+    },
     "browser_action": {
-        "default_icon": "icon-19.png",
+        "default_icon": "img/icon-19.png",
         "default_popup": "popup.html"
     },
     "permissions": [
