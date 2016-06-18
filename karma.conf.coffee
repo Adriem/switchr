@@ -9,7 +9,12 @@ module.exports = (config) ->
 
     # frameworks to use
     # available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha', 'chai', 'sinon', 'chai-sinon']
+    frameworks: [
+      'mocha'
+      'chai'
+      'sinon'
+      'chai-sinon'
+    ]
 
 
     # list of files / patterns to load in the browser
@@ -17,7 +22,8 @@ module.exports = (config) ->
       'node_modules/jquery/dist/jquery.js'
       'node_modules/angular/angular.js'
       'node_modules/angular-mocks/angular-mocks.js'
-      'src/**/*.js',
+      'src/**/*.js'
+      # 'test/**/*.js'
       'test/**/*.coffee'
     ]
 
@@ -29,7 +35,7 @@ module.exports = (config) ->
     # preprocess matching files before serving them to the browser
     # available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'src/**/*.js': ['coverage']
+      # 'src/**/*.js': ['coverage']
       '**/*.coffee': ['coffee']
     }
 
@@ -37,7 +43,8 @@ module.exports = (config) ->
     # test results reporter to use
     # possible values: 'dots', 'progress'
     # available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['mocha', 'coverage']
+    # reporters: ['mocha', 'coverage']
+    reporters: ['mocha']
 
     mochaReporter:
       output: 'autowatch'
@@ -76,7 +83,8 @@ module.exports = (config) ->
 
     # start these browsers
     # available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS']
+    # browsers: ['PhantomJS']
+    browsers: ['Chrome']
 
 
     # Continuous Integration mode

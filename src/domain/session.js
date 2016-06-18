@@ -50,7 +50,7 @@ var switchr = (function(switchr) {
         var _windowList = this.windowList.map(function(window) {
             return window.clone();
         });
-        return new Session(_tabList, _options);
+        return new Session(this.name, _windowList);
     };
 
     Session.revive = function(objectData) {

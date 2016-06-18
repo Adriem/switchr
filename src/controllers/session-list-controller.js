@@ -62,4 +62,13 @@ angular.module('switchr').controller('SessionListCtrl', [
         // Load session on controller load
         loadSessions();
 
+        // var legacyStorage = JSON.parse(localStorage.getItem('SESSIONS'));
+        // var sessions = [];
+        // for (key in legacyStorage) if (legacyStorage.hasOwnProperty(key))
+            // sessions.push(new switchr.Session(key, legacyStorage[key].map(function(tabList) {
+                // return new switchr.Window(tabList.map(function(url) {
+                    // return new switchr.Tab(url);
+                // }));
+            // })));
+        // localStorage.setItem('SESSIONS_V3', JSON.stringify(sessions));
     }]);
