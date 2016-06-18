@@ -2,7 +2,7 @@ angular.module('switchr').directive('currentSession', [
     'ChromeAPIService',
     function(ChromeAPIService) {
         return {
-            templateUrl: 'dist/current-session.directive.html',
+            templateUrl: 'current-session.directive.html',
             restrict: 'AE',
             scope: {
                 sessionData: '=',

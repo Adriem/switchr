@@ -1,7 +1,7 @@
 angular.module('switchr').directive('modal', [
     function() {
         return {
-            templateUrl: 'dist/modal.directive.html',
+            templateUrl: 'modal.directive.html',
             restrict: 'AE',
             transclude: {
                 header: 'modalHeader',

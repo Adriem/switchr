@@ -55,7 +55,10 @@ gulp.task('build:js', function(next) {
 
 gulp.task('build:html', function() {
     return gulp.src('src/**/*.html')
-            .pipe(htmlmin().on('error', util.log))
+            .pipe(htmlmin({
+                removeComments: true,
+                collapseWhitespace: true
+            }).on('error', util.log))
             .pipe(rename({ dirname: '.' }))
             .pipe(gulp.dest('dist/'))
 });

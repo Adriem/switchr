@@ -1,7 +1,7 @@
 angular.module('switchr').directive('session', [
     function() {
         return {
-            templateUrl: 'dist/session.directive.html',
+            templateUrl: 'session.directive.html',
             restrict: 'AE',
             scope: {
                 name: '=',

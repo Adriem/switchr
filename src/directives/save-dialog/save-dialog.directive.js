@@ -1,7 +1,7 @@
 angular.module('switchr').directive('saveControl', [
     function() {
         return {
-            templateUrl: 'dist/save-dialog.directive.html',
+            templateUrl: 'save-dialog.directive.html',
             restrict: 'AE',
             scope: {
                 sessionList: '=',
